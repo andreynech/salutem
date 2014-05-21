@@ -1,4 +1,4 @@
-salutem
+Salutem
 =======
 
-New salutem-journal web site
+New Salutem-journal web site
