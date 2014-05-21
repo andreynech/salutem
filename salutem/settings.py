@@ -36,6 +36,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'publications',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -60,6 +61,7 @@ WSGI_APPLICATION = 'salutem.wsgi.application'
 #        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #    }
 #}
+# 'django.db.backends.postgresql_psycopg2'
 
 DATABASES = {}
 
