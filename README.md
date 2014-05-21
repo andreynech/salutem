@@ -12,3 +12,5 @@ Useful links for development
 * https://devcenter.heroku.com/articles/multiple-environments
 * https://devcenter.heroku.com/articles/heroku-postgresql
 * https://devcenter.heroku.com/articles/getting-started-with-django
+* https://devcenter.heroku.com/articles/pgbackups
+

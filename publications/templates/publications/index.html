@@ -1,0 +1,15 @@
+{% if latest_article_list %}
+    <h1>Latest articles</h1>
+    <ul>
+    {% for article in latest_article_list %}
+        <li>
+          <a href="{% url 'publications:article' article.id %}">{{ article.headline }}</a> by 
+          {% for author in article.authors.all %}
+            <a href="{% url 'publications:author' author.id %}">{{ author.last_name }}</a>, 
+          {% endfor %}
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No articles are available.</p>
+{% endif %}

@@ -8,5 +8,6 @@ urlpatterns = patterns('',
     # url(r'^$', 'salutem.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
 
+    url(r'^publications/', include('publications.urls', namespace = 'publications')),
     url(r'^admin/', include(admin.site.urls)),
 )
