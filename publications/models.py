@@ -17,6 +17,7 @@ class Author(models.Model):
 
 
 class Article(models.Model):
+    authors = models.ManyToManyField(Author, through='ArticleAuthors')
     headline = models.CharField(max_length=128, db_index = True)
     submit_date = models.DateTimeField(db_index = True)
     abstract = models.TextField()
