@@ -3,9 +3,9 @@ from publications import views
 
 
 urlpatterns = patterns('',
-    url(r'^$', views.index, name='index'),
+    url(r'^$', views.IndexView.as_view(), name='index'),
      # ex: /publications/articles/5/
-    url(r'^articles/(?P<article_id>\d+)/$', views.article, name='article'),
+    url(r'^articles/(?P<pk>\d+)/$', views.ArticleDetailView.as_view(), name='article'),
 
-    url(r'^authors/(?P<author_id>\d+)/$', views.author, name='author'),
+    url(r'^authors/(?P<pk>\d+)/$', views.AuthorDetailView.as_view(), name='author'),
 )
