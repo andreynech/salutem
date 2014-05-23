@@ -13,4 +13,5 @@ Useful links for development
 * https://devcenter.heroku.com/articles/heroku-postgresql
 * https://devcenter.heroku.com/articles/getting-started-with-django
 * https://devcenter.heroku.com/articles/pgbackups
-
+* https://devcenter.heroku.com/articles/s3
+* https://devcenter.heroku.com/articles/s3-upload-python
