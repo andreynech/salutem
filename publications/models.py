@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.urlresolvers import reverse
 
 class Author(models.Model):
     first_name = models.CharField(max_length=32)
@@ -10,6 +11,9 @@ class Author(models.Model):
     # On Python 3: def __str__(self):
     def __unicode__(self):
         return self.last_name + ' ' + self.first_name + " ("+self.organization+")"
+
+    def get_absolute_url(self):
+        return reverse('publications:author_detail', kwargs={'pk': self.pk})
 
     class Meta:
         ordering = ('last_name', 'first_name',)
@@ -27,6 +31,9 @@ class Article(models.Model):
     # On Python 3: def __str__(self):
     def __unicode__(self):
         return self.headline
+
+    def get_absolute_url(self):
+        return reverse('publications:article_detail', kwargs={'pk': self.pk})
 
     class Meta:
         ordering = ('headline',)

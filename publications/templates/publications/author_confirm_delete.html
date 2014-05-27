@@ -1,0 +1,7 @@
+<p>Are you sure that you would like to delete this author?</p>
+<ul>
+  <form method="POST" action=".">{% csrf_token %}
+    <li><input type="submit" value="Yes" /></li>
+  </form>
+  <li><a href="{% url 'publications:author_detail' author.id %}">No</a></li>
+</ul>

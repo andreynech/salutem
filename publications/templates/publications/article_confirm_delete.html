@@ -1,0 +1,7 @@
+<p>Are you sure that you would like to delete this article?</p>
+<ul>
+  <form method="POST" action=".">{% csrf_token %}
+    <li><input type="submit" value="Yes" /></li>
+  </form>
+  <li><a href="{% url 'publications:article_detail' article.id %}">No</a></li>
+</ul>
