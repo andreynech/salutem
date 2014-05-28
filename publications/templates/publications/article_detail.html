@@ -1,3 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}
+Article details
+{% endblock %}
+
+{% block content %}
+
 <h1>{{ article.headline }}</h1>
 
 <h2>Authors</h2>
@@ -20,3 +28,5 @@
 
 <h2>Download</h2>
 <a href="{{ MEDIA_URL }}{{ article.article_file }}">Document</a>
+
+{% endblock %}
