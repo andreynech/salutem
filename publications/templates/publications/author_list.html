@@ -1,6 +1,10 @@
-{% load staticfiles %}
+{% extends "base.html" %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'publications/style.css' %}" />
+{% block title %}
+Author list
+{% endblock %}
+
+{% block content %}
 
 {% if author_list %}
     <h1>Known authors:</h1>
@@ -14,3 +18,5 @@
 {% else %}
     <p>No authors are available.</p>
 {% endif %}
+
+{% endblock %}
