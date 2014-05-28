@@ -3,7 +3,8 @@ from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse_lazy
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django import forms
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 from publications.models import Article, Author
 
@@ -32,14 +33,27 @@ class AuthorCreate(CreateView):
     model = Author
     fields = ['first_name', 'last_name', 'title', 'email', 'organization']
 
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(AuthorCreate, self).dispatch(*args, **kwargs)
+
+
 class AuthorUpdate(UpdateView):
     model = Author
     fields = ['first_name', 'last_name', 'title', 'email', 'organization']
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(AuthorUpdate, self).dispatch(*args, **kwargs)
 
 
 class AuthorDelete(DeleteView):
     model = Author
     success_url = reverse_lazy('publications:authorindex')
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(AuthorDelete, self).dispatch(*args, **kwargs)
 
 ###########################################
 
@@ -47,11 +61,23 @@ class ArticleCreate(CreateView):
     model = Article
     fields = ['headline', 'authors', 'submit_date', 'abstract', 'abstract_en']
 
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(ArticleCreate, self).dispatch(*args, **kwargs)
+
 class ArticleUpdate(UpdateView):
     model = Article
     fields = ['headline', 'authors', 'submit_date', 'abstract', 'abstract_en']
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(ArticleUpdate, self).dispatch(*args, **kwargs)
 
 
 class ArticleDelete(DeleteView):
     model = Article
     success_url = reverse_lazy('publications:articleindex')
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(ArticleDelete, self).dispatch(*args, **kwargs)
