@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.urlresolvers import reverse
 
+
 class Author(models.Model):
     first_name = models.CharField(max_length=32)
     last_name = models.CharField(max_length=32, db_index = True)
@@ -23,7 +24,7 @@ class Author(models.Model):
 class Article(models.Model):
     authors = models.ManyToManyField(Author, through='ArticleAuthors')
     headline = models.CharField(max_length=128, db_index = True)
-    submit_date = models.DateTimeField(db_index = True)
+    submit_date = models.DateTimeField(db_index = True, auto_now_add = True)
     abstract = models.TextField()
     abstract_en = models.TextField()
     article_url = models.URLField()
@@ -42,7 +43,7 @@ class Article(models.Model):
 class ArticleAuthors(models.Model):
     article = models.ForeignKey(Article)
     author = models.ForeignKey(Author)
-    position = models.IntegerField()
+    position = models.PositiveSmallIntegerField()
 
     class Meta:
         ordering = ('article','author','position')

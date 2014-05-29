@@ -5,6 +5,7 @@ from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django import forms
 
 from publications.models import Article, Author
 
@@ -59,7 +60,7 @@ class AuthorDelete(DeleteView):
 
 class ArticleCreate(CreateView):
     model = Article
-    fields = ['headline', 'authors', 'submit_date', 'abstract', 'abstract_en']
+    fields = ['headline', 'authors', 'abstract', 'abstract_en', 'article_url']
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -67,7 +68,7 @@ class ArticleCreate(CreateView):
 
 class ArticleUpdate(UpdateView):
     model = Article
-    fields = ['headline', 'authors', 'submit_date', 'abstract', 'abstract_en']
+    fields = ['headline', 'authors', 'abstract', 'abstract_en']
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
