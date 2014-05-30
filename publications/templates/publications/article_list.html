@@ -1,4 +1,9 @@
 {% extends "base.html" %}
+{% load staticfiles %}
+
+{% block scripts %}
+<script type="text/javascript" src="{% static 'publications/infinite-scroll-with-filter.js' %}"></script>
+{% endblock %}
 
 {% block title %}
 Article list

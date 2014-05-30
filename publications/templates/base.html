@@ -4,6 +4,10 @@
 <html lang="en">
 <head>
   <link rel="stylesheet" type="text/css" href="{% static 'publications/style.css' %}" />
+  <script type="text/javascript" src="{% static 'publications/include-ext.js' %}"></script>
+
+  {% block scripts %} {% endblock %}
+
   <title>{% block title %}Salutem Journal{% endblock %}</title>
 </head>
 
