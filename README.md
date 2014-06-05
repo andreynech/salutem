@@ -15,3 +15,6 @@ Useful links for development
 * https://devcenter.heroku.com/articles/pgbackups
 * https://devcenter.heroku.com/articles/s3
 * https://devcenter.heroku.com/articles/s3-upload-python
+
+If you’re interested in using our content delivery network in your production environment, you can link to ext-all.js
+<script type="text/javascript" charset="utf-8" src="http://cdn.sencha.io/ext-4.2.0-gpl/ext-all.js"></script>
