@@ -2,7 +2,23 @@
 {% load staticfiles %}
 
 {% block scripts %}
-<script type="text/javascript" src="{% static 'publications/infinite-scroll-with-filter.js' %}"></script>
+
+<script type="text/javascript">
+
+function WebmailViewModel() {
+    // Data
+    var self = this;
+    self.folders = ['Inbox', 'Archive', 'Sent', 'Spam'];
+    self.chosenFolderId = ko.observable();
+
+    // Behaviours    
+    self.goToFolder = function(folder) { self.chosenFolderId(folder); };    
+};
+
+//ko.applyBindings(new WebmailViewModel());
+
+</script>
+
 {% endblock %}
 
 {% block title %}
@@ -11,20 +27,14 @@ Article list
 
 {% block content %}
 
-{% if article_list %}
-    <h1>Latest articles:</h1>
-    <ul>
-    {% for article in article_list %}
-        <li>
-          <a href="{% url 'publications:article_detail' article.id %}">{{ article.headline }}</a> by 
-          {% for author in article.authors.all %}
-            <a href="{% url 'publications:author_detail' author.id %}">{{ author.last_name }}</a>, 
-          {% endfor %}
-        </li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No articles are available.</p>
-{% endif %}
+<!-- Folders -->
+<ul class="folders" data-bind="foreach: folders">
+    <li data-bind="text: $data,
+                   css: { selected: $data == $root.chosenFolderId() },
+                   click: $root.goToFolder"></li></ul>
+
+<script type="text/javascript">
+ko.applyBindings(new WebmailViewModel());
+</script>
 
 {% endblock %}
