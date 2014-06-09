@@ -1,11 +1,8 @@
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse_lazy
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django import forms
 
 from publications.models import Article, Author
 
