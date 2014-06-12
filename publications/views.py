@@ -9,20 +9,19 @@ from publications.models import Article, Author
 
 class IndexView(generic.ListView):
     model = Article
-    paginate_by = 1
+    paginate_by = 20
 
     def get_queryset(self):
                  
         if 'search' in self.request.GET:
             objects = Article.objects.filter(
-                headline__icontains=self.request.GET['search']
+                headline__icontains = self.request.GET['search']
                 # | Q(....)
                 )
         else:
             objects = Article.objects.all()
          
         return objects
-
 
 #    def get_queryset(self):
 #        """Return the last five published articles."""

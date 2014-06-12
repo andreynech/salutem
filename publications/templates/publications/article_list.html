@@ -6,6 +6,15 @@ Article list
 
 {% block content %}
 
+<form class="form-search">
+
+  {% csrf_token %}
+
+  <input type="text" name="search" class="search-query">
+  <button class="btn" type="submit">Search</button>
+</form>
+
+
 {% if article_list %}
 
     <div class="table-responsive">
@@ -43,35 +52,39 @@ Article list
       </table>
     </div>
 
+{% if is_paginated %}
+
 <div class="container">
 
-<ul class="pager">
-  {% if page_obj.has_previous %}
-  <li class="previous">
-    <a href="?page={{ page_obj.previous_page_number }}">&larr; Previous</a>
-  </li>
-  {% else %}
-  <li class="previous disabled">
-    <a href="#">&larr; Previous</a>
-  </li>
+  <ul class="pager">
+    {% if page_obj.has_previous %}
+    <li class="previous">
+      <a href="?page={{ page_obj.previous_page_number }}">&larr; Previous</a>
+    </li>
+    {% else %}
+    <li class="previous disabled">
+      <a href="#">&larr; Previous</a>
+    </li>
+    {% endif %}
 
-  {% endif %}
-  <li>
-    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
-  </li>
+    <li>
+      Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+    </li>
 
-  {% if page_obj.has_next %}
-  <li class="next">
-    <a href="?page={{ page_obj.next_page_number }}">Next &rarr;</a>
-  </li>
-  {% else %}
-  <li class="next disabled">
-    <a href="#">Next &rarr;</a>
-  </li>
-  {% endif %}
-</ul>
+    {% if page_obj.has_next %}
+    <li class="next">
+      <a href="?page={{ page_obj.next_page_number }}">Next &rarr;</a>
+    </li>
+    {% else %}
+    <li class="next disabled">
+      <a href="#">Next &rarr;</a>
+    </li>
+    {% endif %}
+  </ul>
 
 </div>
+
+{% endif %}
 
 {% else %}
     <p>No articles found.</p>
