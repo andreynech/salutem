@@ -10,15 +10,17 @@
   <img width="50%" src="{% static 'publications/images/cover.jpg' %}" alt="cover">
 </center>
 -->
+<!--
+<div class="jumbotron text-center" style="background-image: url( {% static 'publications/images/cover.jpg' %} );">
+-->
 <div class="jumbotron text-center">
   <h1>Salutem Journal</h1>
   <p>{% blocktrans %}Open publication platform for scientific medical articles{% endblocktrans %}<br>
   ISSN: xxx-xxxX<br>
   {% blocktrans %}Universal Impact Factor {UIF} for year 2014 is{% endblocktrans %}: <br> 0.00</p>
   <p>
-    <a href="#" class="btn btn-info btn-lg" role="button">{% trans "Learn more" %}</a>
     <a href="{% url 'publications:article_add' %}" class="btn btn-primary btn-lg" role="button">{% trans "Submit publication" %}</a>
-    <a href="{% url 'publications:articleindex' %}" class="btn btn-primary btn-lg" role="button">{% trans "Browse publications" %}</a>
+    <a href="{% url 'publications:articleindex' %}" class="btn btn-info btn-lg" role="button">{% trans "Browse publications" %}</a>
   </p>
 </div>
 <!--
@@ -31,17 +33,17 @@
   <div class="row">
 
     <div class="col-md-3">
-      <h3><a href="#">About Journal</a></h3>
+      <h3><a href="#">{% trans "About Journal" %}</a></h3>
       <p>
         We publish original scientific studies, review and educational
         articles, and papers commenting on the clinical, scientific,
         social, political, and economic factors affecting health.
       </p>
-      <a href="#" class="btn btn-default">Read more...</a>
+      <a href="#" class="btn btn-default">{% trans "Read more" %}...</a>
     </div>
 
     <div class="col-md-3">
-      <h3><a href="#">For authors</a></h3>
+      <h3><a href="#">{% trans "For authors" %}</a></h3>
       <p>
         Interested in submitting to this journal? We recommend that
         you review the About the Journal page for the journal's
@@ -50,11 +52,11 @@
         already registered, can simply log in and begin the two-step
         process.
       </p>
-      <a href="#" class="btn btn-default">Read more...</a>
+      <a href="#" class="btn btn-default">{% trans "Read more" %}...</a>
     </div>
 
     <div class="col-md-3">
-      <h3><a href="#">For readers</a></h3>
+      <h3><a href="#">{% trans "For readers" %}</a></h3>
       <p>
         We encourage readers to sign up for the publishing
         notification service for this journal. Use the Register link
@@ -66,11 +68,11 @@
         readers that their name and email address will not be used for
         other purposes.
       </p>
-      <a href="#" class="btn btn-default">Read more...</a>
+      <a href="#" class="btn btn-default">{% trans "Read more" %}...</a>
     </div>
 
     <div class="col-md-3">
-      <h3><a href="#">For librarians</a></h3>
+      <h3><a href="#">{% trans "For librarians" %}</a></h3>
       <p>
         We encourage research librarians to list this journal among
         their library's electronic journal holdings. As well, it may
@@ -78,7 +80,7 @@
         system is suitable for libraries to host for their faculty
         members to use with journals they are involved in editing.
       </p>
-      <a href="#" class="btn btn-default">Read more...</a>
+      <a href="#" class="btn btn-default">{% trans "Read more" %}...</a>
     </div>
 
   </div>

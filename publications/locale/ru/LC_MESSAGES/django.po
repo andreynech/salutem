@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-13 14:17+0200\n"
+"POT-Creation-Date: 2014-06-13 14:32+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -59,6 +59,27 @@ msgstr "Подробности"
 #: templates/index.html:21
 msgid "Browse publications"
 msgstr "Просмотр публикаций"
+
+#: templates/index.html:34
+msgid "About Journal"
+msgstr "О журнале"
+
+#: templates/index.html:40 templates/index.html.py:53 templates/index.html:69
+#: templates/index.html.py:81
+msgid "Read more"
+msgstr "Читать далее"
+
+#: templates/index.html:44
+msgid "For authors"
+msgstr "Для авторов"
+
+#: templates/index.html:57
+msgid "For readers"
+msgstr "Для читателей"
+
+#: templates/index.html:73
+msgid "For librarians"
+msgstr "Для библиотекарей"
 
 #: templates/publications/article_list.html:19
 msgid "Search"
