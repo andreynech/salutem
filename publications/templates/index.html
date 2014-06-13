@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 {% load staticfiles %}
+{% load i18n %}
+{% load l10n %}
+{% trans alert %}
 
 {% block content %}
 <!--
@@ -9,13 +12,13 @@
 -->
 <div class="jumbotron text-center">
   <h1>Salutem Journal</h1>
-  <p>Open publication platform for scientific medical articles<br>
+  <p>{% blocktrans %}Open publication platform for scientific medical articles{% endblocktrans %}<br>
   ISSN: xxx-xxxX<br>
-  Universal Impact Factor {UIF} for year 2014 is: <br> 0.00</p>
+  {% blocktrans %}Universal Impact Factor {UIF} for year 2014 is{% endblocktrans %}: <br> 0.00</p>
   <p>
-    <a href="#" class="btn btn-info btn-lg" role="button">Learn more</a>
-    <a href="{% url 'publications:article_add' %}" class="btn btn-primary btn-lg" role="button">Submit publication</a>
-    <a href="{% url 'publications:articleindex' %}" class="btn btn-primary btn-lg" role="button">Browse publications</a>
+    <a href="#" class="btn btn-info btn-lg" role="button">{% trans "Learn more" %}</a>
+    <a href="{% url 'publications:article_add' %}" class="btn btn-primary btn-lg" role="button">{% trans "Submit publication" %}</a>
+    <a href="{% url 'publications:articleindex' %}" class="btn btn-primary btn-lg" role="button">{% trans "Browse publications" %}</a>
   </p>
 </div>
 <!--
