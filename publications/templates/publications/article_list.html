@@ -23,7 +23,7 @@ Article list
 {% if article_list %}
 
     <div class="table-responsive">
-      <table class="table table-striped">
+      <table class="table table-striped" style="cursor: pointer; cursor: hand">
         <thead>
           <tr>
             <th>{% trans "Headline" %}</th>
@@ -36,8 +36,8 @@ Article list
     {% for article in article_list %}
         <tr>
 
-          <td>
-            <a href="{% url 'publications:article_detail' article.id %}">{{ article.headline }}</a>
+          <td onclick="window.location.href = ' {% url 'publications:article_detail' article.id %} ';">
+            {{ article.headline }}
           </td>
 
           <td>
@@ -46,7 +46,7 @@ Article list
           {% endfor %}
           </td>
 
-          <td>
+          <td onclick="window.location.href = ' {% url 'publications:article_detail' article.id %} ';">
             {{ article.submit_date }}
           </td>
 

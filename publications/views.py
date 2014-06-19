@@ -3,6 +3,7 @@ from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.db.models import Q
 
 from publications.models import Article, Author
 
@@ -14,12 +15,12 @@ class IndexView(generic.ListView):
     def get_queryset(self):
                  
         if 'search' in self.request.GET:
-            objects = Article.objects.filter(
+            objects = self.model.objects.filter(
                 headline__icontains = self.request.GET['search']
                 # | Q(....)
                 )
         else:
-            objects = Article.objects.all()
+            objects = self.model.objects.all()
          
         return objects
 
@@ -29,6 +30,20 @@ class IndexView(generic.ListView):
 
 class AuthorList(generic.ListView):
     model = Author
+    paginate_by = 20
+
+    def get_queryset(self):
+                 
+        if 'search' in self.request.GET:
+            objects = self.model.objects.filter(
+                Q(first_name__icontains = self.request.GET['search'])
+                | Q(last_name__icontains = self.request.GET['search'])
+                | Q(organization__icontains = self.request.GET['search'])
+                )
+        else:
+            objects = self.model.objects.all()
+         
+        return objects
 
 
 class ArticleDetailView(generic.DetailView):

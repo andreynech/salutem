@@ -1,0 +1,72 @@
+{% load i18n %}
+{% load l10n %}
+{% trans alert %}
+
+{% if author_list %}
+
+<div class="table-responsive">
+  <table class="table table-striped" style="cursor: pointer; cursor: hand">
+    <thead>
+      <tr>
+        <th>{% trans "Title" %}</th>
+        <th>{% trans "Last name" %}</th>
+        <th>{% trans "First name" %}</th>
+        <th>{% trans "Email" %}</th>
+        <th>{% trans "Organization" %}</th>
+      </tr>
+    </thead>
+    <tbody>
+
+    {% for author in author_list %}
+    <tr onclick="window.location.href = ' {% url 'publications:author_detail' author.id %} ';">
+
+      <td> {{ author.title }} </td>
+      <td> {{ author.last_name }} </td>
+      <td> {{ author.first_name }} </td>
+      <td> {{ author.email }} </td>
+      <td> {{ author.organization }} </td>
+
+    </tr>
+    {% endfor %}
+
+    </tbody>
+  </table>
+</div>
+
+{% if is_paginated %}
+
+<div class="container">
+
+  <ul class="pager">
+    {% if page_obj.has_previous %}
+    <li class="previous">
+      <a href="?page={{ page_obj.previous_page_number }}">&larr; {% trans "Previous" %}</a>
+    </li>
+    {% else %}
+    <li class="previous disabled">
+      <a href="#">&larr; {% trans "Previous" %}</a>
+    </li>
+    {% endif %}
+
+    <li>
+      {% blocktrans with cur_page=page_obj.number total=page_obj.paginator.num_pages %}Page {{ cur_page }} of {{ total }}{% endblocktrans %}
+    </li>
+
+    {% if page_obj.has_next %}
+    <li class="next">
+      <a href="?page={{ page_obj.next_page_number }}">{% trans "Next" %} &rarr;</a>
+    </li>
+    {% else %}
+    <li class="next disabled">
+      <a href="#">{% trans "Next" %} &rarr;</a>
+    </li>
+    {% endif %}
+  </ul>
+
+</div>
+
+{% endif %}
+
+{% else %}
+<p>No authors found.</p>
+{% endif %}

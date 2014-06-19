@@ -1,4 +1,8 @@
 {% extends "base.html" %}
+{% load i18n %}
+{% load l10n %}
+{% trans alert %}
+
 
 {% block title %}
 Author list
@@ -6,17 +10,12 @@ Author list
 
 {% block content %}
 
-{% if author_list %}
-    <h1>Known authors:</h1>
-    <ul>
-    {% for author in author_list %}
-        <li>
-            <a href="{% url 'publications:author_detail' author.id %}">{{ author.last_name }} {{ author.first_name }}</a>, 
-        </li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No authors are available.</p>
-{% endif %}
+<form class="form-search" action=".">{% csrf_token %}
+
+  <input type="text" name="search" class="search-query">
+  <button class="btn" type="submit">{% trans "Search" %}</button>
+</form>
+
+{% include "publications/author_list_content.html" %}
 
 {% endblock %}
