@@ -5,6 +5,12 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.db.models import Q
 
+
+from django.forms import ModelForm
+from django.http import HttpResponseRedirect
+from django.contrib.formtools.wizard.views import SessionWizardView
+
+
 from publications.models import Article, Author
 
 
@@ -55,9 +61,11 @@ class AuthorDetailView(generic.DetailView):
 
 ###########################################
 
-class AuthorCreate(CreateView):
-    model = Author
-    fields = ['first_name', 'last_name', 'title', 'email', 'organization']
+class AuthorCreate(ModelForm):
+
+    class Meta:
+        model = Author
+        fields = ['first_name', 'last_name', 'title', 'email', 'organization']
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -83,13 +91,17 @@ class AuthorDelete(DeleteView):
 
 ###########################################
 
-class ArticleCreate(CreateView):
-    model = Article
-    fields = ['headline', 'authors', 'abstract', 'abstract_en', 'article_url']
+class ArticleCreate(ModelForm):
+
+    class Meta:
+        model = Article
+        #fields = ['headline', 'authors', 'abstract', 'abstract_en', 'article_url']
+        fields = ['headline', 'abstract', 'abstract_en', 'article_url']
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(ArticleCreate, self).dispatch(*args, **kwargs)
+
 
 class ArticleUpdate(UpdateView):
     model = Article
@@ -107,3 +119,21 @@ class ArticleDelete(DeleteView):
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(ArticleDelete, self).dispatch(*args, **kwargs)
+
+
+
+FORMS = [("authors", AuthorCreate),
+         ("article", ArticleCreate),
+]
+
+TEMPLATES = {"authors": "publications/author_form.html",
+             "article": "publications/article_form.html",
+}
+
+class ArticleWizard(SessionWizardView):
+    def get_template_names(self):
+        return [TEMPLATES[self.steps.current]]
+
+    def done(self, form_list, **kwargs):
+        #do_something_with_the_form_data(form_list)
+        return HttpResponseRedirect(reverse('publications:articleindex'))
