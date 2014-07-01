@@ -1,4 +1,4 @@
-from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.decorators import login_required
@@ -136,4 +136,5 @@ class ArticleWizard(SessionWizardView):
 
     def done(self, form_list, **kwargs):
         #do_something_with_the_form_data(form_list)
+        print([form.cleaned_data for form in form_list])
         return HttpResponseRedirect(reverse('publications:articleindex'))
