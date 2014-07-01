@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, url
 from publications import views
+from django.contrib.auth.decorators import login_required
 
 
 urlpatterns = patterns('',
@@ -8,7 +9,7 @@ urlpatterns = patterns('',
     url(r'^articles/(?P<pk>\d+)/$', views.ArticleDetailView.as_view(), name='article_detail'),
 
     #url(r'^articles/add/$', views.ArticleCreate.as_view(), name='article_add'),
-    url(r'^articles/add/$', views.ArticleWizard.as_view(views.FORMS), name='article_add'),
+    url(r'^articles/add/$', login_required(views.ArticleWizard.as_view(views.FORMS)), name='article_add'),
 
 
     url(r'^articles/(?P<pk>\d+)/update/$', views.ArticleUpdate.as_view(), name='article_update'),
