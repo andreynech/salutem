@@ -11,7 +11,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.formtools.wizard.views import SessionWizardView
 
 
-from publications.models import Article, Author
+from publications.models import Article, Author, ArticleAuthors
 
 
 class IndexView(generic.ListView):
@@ -137,4 +137,17 @@ class ArticleWizard(SessionWizardView):
     def done(self, form_list, **kwargs):
         #do_something_with_the_form_data(form_list)
         print([form.cleaned_data for form in form_list])
+        print("Authors:")
+        authordata = self.get_cleaned_data_for_step('authors')
+        print(authordata)
+        aut = Author(**authordata)
+        aut.save()
+        print("Article:")
+        articledata = self.get_cleaned_data_for_step('article')
+        print(articledata)
+        art = Article(**articledata)
+        art.save()
+        aa = ArticleAuthors(article = art, author = aut, position = 1)
+        aa.save()
+
         return HttpResponseRedirect(reverse('publications:articleindex'))
