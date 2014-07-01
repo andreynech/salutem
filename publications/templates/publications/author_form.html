@@ -40,7 +40,12 @@ Add new author
           {% endif %}
             <label for="{{ field.auto_id}}" class="col-sm-2 control-label">{{ field.label }}</label>
             <div class="col-sm-10">
-              <input class="form-control" id="{{ field.auto_id }}" name="{{ field.html_name }}" type="{{ field.field.widget.input_type }}">
+              <input 
+                 class="form-control" 
+                 id="{{ field.auto_id }}" 
+                 name="{{ field.html_name }}" 
+                 type="{{ field.field.widget.input_type }}"
+                 value="{{ field.value | default_if_none:"" }}">
               {% for error in field.errors %}
                 <span class="help-block">{{ error|escape }}</span>
               {% endfor %}
@@ -68,7 +73,12 @@ Add new author
         {% endif %}
           <label for="{{ field.auto_id}}" class="col-sm-2 control-label">{{ field.label }}</label>
           <div class="col-sm-10">
-            <input class="form-control" id="{{ field.auto_id }}" name="{{ field.html_name }}" type="{{ field.field.widget.input_type }}">
+            <input 
+               class="form-control" 
+               id="{{ field.auto_id }}" 
+               name="{{ field.html_name }}" 
+               type="{{ field.field.widget.input_type }}"
+               value="{{ field.value | default_if_none:"" }}">
             {% for error in field.errors %}
               <span class="help-block">{{ error|escape }}</span>
             {% endfor %}
