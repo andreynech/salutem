@@ -48,6 +48,11 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.core.context_processors.request',
+    'django.contrib.auth.context_processors.auth', # for admin
+)
+
 ROOT_URLCONF = 'salutem.urls'
 
 WSGI_APPLICATION = 'salutem.wsgi.application'

@@ -1,7 +1,9 @@
 {% load staticfiles %}
 {% load i18n %}
 {% load l10n %}
+{% load custom_tags %}
 {% trans alert %}
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -38,10 +40,10 @@
 
     <div class="collapse navbar-collapse nav-header-collapse">
       <ul class="nav navbar-nav navbar-right">
-        <li class="active"><a href="{% url 'home' %}">{% trans "Home" %}</a></li>
-        <li><a href="{% url 'publications:articleindex' %}">{% trans "Publications" %}</a></li>
-        <li><a href="{% url 'publications:authorindex' %}">{% trans "Authors" %}</a></li>
-        <li><a href="{% url 'publications:article_add' %}">{% trans "Submit publication" %}</a></li>
+        <li class="{% active_page request 'home' %}"><a href="{% url 'home' %}">{% trans "Home" %}</a></li>
+        <li class="{% active_page request 'articleindex' %}"><a href="{% url 'publications:articleindex' %}">{% trans "Publications" %}</a></li>
+        <li class="{% active_page request 'authorindex' %}"><a href="{% url 'publications:authorindex' %}">{% trans "Authors" %}</a></li>
+        <li class="{% active_page request 'article_add' %}"><a href="{% url 'publications:article_add' %}">{% trans "Submit publication" %}</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" >Languages <b class="caret"></b></a>
           <ul class="dropdown-menu">
