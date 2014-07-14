@@ -5,8 +5,8 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.db.models import Q
 
-
 from django.forms import ModelForm
+from django.forms.formsets import formset_factory
 from django.http import HttpResponseRedirect
 from django.contrib.formtools.wizard.views import SessionWizardView
 
@@ -122,12 +122,18 @@ class ArticleDelete(DeleteView):
 
 
 
-FORMS = [("authors", AuthorCreate),
+#FORMS = [("authors", AuthorCreate),
+#         ("article", ArticleCreate),
+#]
+
+AuthorFormSet = formset_factory(AuthorCreate, max_num=5, can_delete=False)
+
+FORMS = [("authors", AuthorFormSet),
          ("article", ArticleCreate),
 ]
 
-TEMPLATES = {"authors": "publications/author_form.html",
-             "article": "publications/article_form.html",
+TEMPLATES = {"article": "publications/article_form.html",
+             "authors": "publications/author_formset_form.html",
 }
 
 class ArticleWizard(SessionWizardView):
@@ -136,18 +142,23 @@ class ArticleWizard(SessionWizardView):
 
     def done(self, form_list, **kwargs):
         #do_something_with_the_form_data(form_list)
-        print([form.cleaned_data for form in form_list])
-        print("Authors:")
-        authordata = self.get_cleaned_data_for_step('authors')
-        print(authordata)
-        aut = Author(**authordata)
-        aut.save()
-        print("Article:")
+        #print([form.cleaned_data for form in form_list])
+
         articledata = self.get_cleaned_data_for_step('article')
-        print(articledata)
+        #print("Article:")
+        #print(articledata)
         art = Article(**articledata)
         art.save()
-        aa = ArticleAuthors(article = art, author = aut, position = 1)
-        aa.save()
+
+        authordata = self.get_cleaned_data_for_step('authors')
+        #print("Authors:")
+        #print(authordata)
+        pos = 0
+        for aut_data in authordata:
+            aut = Author(**aut_data)
+            aut.save()
+            aa = ArticleAuthors(article = art, author = aut, position = pos)
+            aa.save()
+            pos += 1
 
         return HttpResponseRedirect(reverse('publications:articleindex'))

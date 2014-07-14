@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load l10n %}
+{% trans alert %}
+
+{% block additional_head %}
+{{ wizard.form.media }}
+{% endblock %}
+
+{% block header_scripts %}
+<script>
+function cloneMore(selector, type) {
+    var newElement = $(selector).clone(true);
+    var total = $('#id_' + type + '-TOTAL_FORMS').val();
+    newElement.find(':input').each(function() {
+        var name = $(this).attr('name').replace('-' + (total-1) + '-','-' + total + '-');
+        var id = 'id_' + name;
+        $(this).attr({'name': name, 'id': id}).val('').removeAttr('checked');
+    });
+    newElement.find('label').each(function() {
+        var newFor = $(this).attr('for').replace('-' + (total-1) + '-','-' + total + '-');
+        $(this).attr('for', newFor);
+    });
+    total++;
+    newElement.find(".author-pos").text(total);
+    $('#id_' + type + '-TOTAL_FORMS').val(total);
+    $(selector).after(newElement);
+}
+</script>
+{% endblock %}
+
+{% block title %}
+Add new author
+{% endblock %}
+
+{% block content %}
+
+<div class="lead">
+{% blocktrans with cur_step=wizard.steps.step1 total=wizard.steps.count %}Step {{ cur_step }} of {{ total }}{% endblocktrans %}
+</div>
+
+<form class="form-horizontal" role="form" action="" method="post">{% csrf_token %}
+
+  {{ wizard.management_form }}
+
+  {% for error in form.non_field_errors %}
+    <div class="danger">{{ error|escape }}</div>
+  {% endfor %}
+
+
+  {{ wizard.form.management_form }}
+
+  <div class="author-list">
+  {% for form in wizard.form.forms %}
+
+    <h3>Author <span class="author-pos">1</span></h3>
+
+    {% for field in form %}
+
+    {% if field.errors %}
+    <div class="form-group has-error">
+    {% else %}
+    <div class="form-group">
+    {% endif %}
+
+      <label for="{{ field.auto_id}}" class="col-sm-2 control-label">{{ field.label }}</label>
+      <div class="col-sm-10">
+        <input 
+           class="form-control" 
+           id="{{ field.auto_id }}"
+           name="{{ field.html_name }}" 
+           type="{{ field.field.widget.input_type }}"
+           value="{{ field.value | default_if_none:"" }}">
+        {% for error in field.errors %}
+          <span class="help-block">{{ error|escape }}</span>
+        {% endfor %}
+      </div>
+    </div>
+
+    {% endfor %}
+    </div>
+  {% endfor %}
+<input class="btn btn-default" type="button" value="{% trans "Add another author" %}" id="add_more">
+<script>
+    $('#add_more').click(function() {
+        cloneMore('div.author-list:last', 'authors');
+    });
+</script>
+
+
+<div class="form-group">
+  <div class="col-sm-offset-2 col-sm-10">
+
+  {% if wizard.steps.prev %}
+    <button class="btn btn-default" name="wizard_goto_step" type="submit" value="{{ wizard.steps.first }}">{% trans "First step" %}</button>
+    <button class="btn btn-default" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">{% trans "Prev step" %}</button>
+  {% endif %}
+
+    <button type="submit" class="btn btn-primary">{% trans "Next step" %}</button>
+  </div>
+</div>
+
+</form>
+
+{% endblock %}
