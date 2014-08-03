@@ -122,37 +122,33 @@ class ArticleDelete(DeleteView):
 
 
 
-#FORMS = [("authors", AuthorCreate),
-#         ("article", ArticleCreate),
-#]
+ARTICLE_WIZARD_FORMS = [("authors", formset_factory(AuthorCreate, max_num=5, can_delete=False)),
+                        ("article", ArticleCreate),
+                        ]
 
-AuthorFormSet = formset_factory(AuthorCreate, max_num=5, can_delete=False)
-
-FORMS = [("authors", AuthorFormSet),
-         ("article", ArticleCreate),
-]
-
-TEMPLATES = {"article": "publications/article_form.html",
-             "authors": "publications/author_formset_form.html",
-}
 
 class ArticleWizard(SessionWizardView):
+
+    TEMPLATES = {"authors": "publications/author_formset_form.html",
+                 "article": "publications/article_form.html",
+                 }
+
     def get_template_names(self):
-        return [TEMPLATES[self.steps.current]]
+        return [self.TEMPLATES[self.steps.current]]
 
     def done(self, form_list, **kwargs):
         #do_something_with_the_form_data(form_list)
-        #print([form.cleaned_data for form in form_list])
+        print([form.cleaned_data for form in form_list])
 
         articledata = self.get_cleaned_data_for_step('article')
-        #print("Article:")
-        #print(articledata)
+        print("Article:")
+        print(articledata)
         art = Article(**articledata)
         art.save()
 
         authordata = self.get_cleaned_data_for_step('authors')
-        #print("Authors:")
-        #print(authordata)
+        print("Authors:")
+        print(authordata)
         pos = 0
         for aut_data in authordata:
             aut = Author(**aut_data)

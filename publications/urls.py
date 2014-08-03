@@ -9,8 +9,9 @@ urlpatterns = patterns('',
     url(r'^articles/(?P<pk>\d+)/$', views.ArticleDetailView.as_view(), name='article_detail'),
 
     #url(r'^articles/add/$', views.ArticleCreate.as_view(), name='article_add'),
-    url(r'^articles/add/$', login_required(views.ArticleWizard.as_view(views.FORMS)), name='article_add'),
-
+    url(r'^articles/add/$', 
+        login_required(views.ArticleWizard.as_view(views.ARTICLE_WIZARD_FORMS)), 
+        name='article_add'),
 
     url(r'^articles/(?P<pk>\d+)/update/$', views.ArticleUpdate.as_view(), name='article_update'),
     url(r'^articles/(?P<pk>\d+)/delete/$', views.ArticleDelete.as_view(), name='article_delete'),

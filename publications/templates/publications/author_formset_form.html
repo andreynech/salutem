@@ -44,17 +44,16 @@ Add new author
 
   {{ wizard.management_form }}
 
-  {% for error in form.non_field_errors %}
-    <div class="danger">{{ error|escape }}</div>
-  {% endfor %}
-
-
   {{ wizard.form.management_form }}
 
   <div class="author-list">
   {% for form in wizard.form.forms %}
 
     <h3>Author <span class="author-pos">1</span></h3>
+
+    {% for error in form.non_field_errors %}
+      <p class="text-danger">{{ error|escape }}</p>
+    {% endfor %}
 
     {% for field in form %}
 
@@ -97,7 +96,8 @@ Add new author
     <button class="btn btn-default" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">{% trans "Prev step" %}</button>
   {% endif %}
 
-    <button type="submit" class="btn btn-primary">{% trans "Next step" %}</button>
+    <button type="submit" class="btn btn-primary">{% trans "Submit" %}</button>
+
   </div>
 </div>
 
